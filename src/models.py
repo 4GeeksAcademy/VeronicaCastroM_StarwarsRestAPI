@@ -9,11 +9,30 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return f"User with email {self.email} and Id {self.id}"
 
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
+            "is_active": self.is_active
+            # do not serialize the password, its a security breach
+        }
+
+
+class Planets(db.Model):
+    __tablename__ = 'planet'
+    id = db.Column(db.Integer, primary_key=True)
+    name= db.Column(db.String(80), unique=False, nullable=False)
+
+
+    def __repr__(self):
+        return f"Planet with ID {self.id} and name {self.name}"
+    
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name
             # do not serialize the password, its a security breach
         }
